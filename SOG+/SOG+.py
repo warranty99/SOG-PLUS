@@ -16,6 +16,7 @@ class gvar:
     commaSeparator = r"([^=]+),(.+)"
     UVars = {}
     UFuncs = {}
+    UBools = {}
     line=1
     class IMPORTS:
         class COLOR:
@@ -50,12 +51,14 @@ def interpret(line):
                 arg1 = match.group(1)
                 arg2 = match.group(2)
                 if arg1 is not int:
-                    if gvar.UVars.get(arg1) == arg2:
+                    if gvar.UVars.get(arg1.replace(" ", "")) == arg2.replace(" ", ""):
                         encapsulated = re.search(gvar.encapsulator, line)
                         if encapsulated is not None:
                             interpret(encapsulated.group(1))
-                    else:        
+                    else:  
                         pass
+                else:
+                    pass    
             else:
                 match = re.search(gvar.varIsnt, match)
                 if match is not None:
@@ -115,12 +118,17 @@ def interpret(line):
         if match is not None:
             time.sleep(int(re.search(gvar.definer, line).group(0)))
         elif match is None:
-            print("Line", gvar.line, "> Syntax error!, Missing Closing Bracket! -> ]")
+            print("Line", gvar.line, "> Syntax error!, Missing Closing Bracket! -> ]")    
+                        
     else:
         if gvar.UFuncs.get(line) is not None:
             interpret(gvar.UFuncs.get(line))
         else:
-            print("OBJ not recognized! make sure to use brackets! -> []")    
+            if re.search(gvar.varDefiner, line) is not None:
+                match = re.search(gvar.varDefiner, line)
+                gvar.UVars[match.group(1)] = re.search(gvar.varDefiner, line).group(2)
+            else:    
+                print("OBJ not recognized! make sure to use brackets! -> []")    
 while True:
     if i == 0:
         print("Loading resources..")
