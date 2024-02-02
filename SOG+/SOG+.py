@@ -1,6 +1,8 @@
 import random
 import re
 import time # Note To Readers: Don't write your interpreters in python... Dont write anything in python that requires doing this.. Don't write this, just don't, use ASM to do shit like this....
+i=0
+e=0
 class gvar:
     definer = r"\[(.*?)\]"
     string = r"\"(.*?)\""
@@ -8,6 +10,7 @@ class gvar:
     FuncParameters = r"\((.*?)\)"
     varDefiner = r"([^=]+)=(.+)"
     varGreaterThan = r"([^>]+)>(.+)"
+    varIsnt = r"([^>]+)!=(.+)"
     varLessThan = r"([^<]+)<(.+)"
     varIs = r"([^=]+)==(.+)"
     commaSeparator = r"([^=]+),(.+)"
@@ -52,7 +55,19 @@ def interpret(line):
                         if encapsulated is not None:
                             interpret(encapsulated.group(1))
                     else:        
-                        pass        
+                        pass
+            else:
+                match = re.search(gvar.varIsnt, match)
+                if match is not None:
+                    arg1 = match.group(1)
+                    arg2 = match.group(2)
+                    if arg1 is not int:
+                        if gvar.UVars.get(arg1) is not arg2:
+                            encapsulated = re.search(gvar.encapsulator, line)
+                            if encapsulated is not None:
+                                interpret(encapsulated.group(1))
+                        else:        
+                            pass 
         else:
             print("Line", gvar.line, "> Syntax error!, Missing Closing Bracket! -> ]")               
     elif r"print[" in line:
@@ -107,5 +122,12 @@ def interpret(line):
         else:
             print("OBJ not recognized! make sure to use brackets! -> []")    
 while True:
-    cmd = input("sog >")
+    if i == 0:
+        print("Loading resources..")
+        while e in range(0, 1000):
+            gvar.UVars[e] = e 
+            e = e+1
+        print("SOG+ Resources loaded, opening terminal..")    
+        i=1    
+    cmd = input("SOG+ >")
     interpret(cmd)
