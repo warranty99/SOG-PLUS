@@ -5,6 +5,7 @@ i=0
 e=0
 class gvar:
     definer = r"\((.*?)\)"
+    funcName = r"\[(.*?)\]"
     string = r"\"(.*?)\""
     encapsulator = r"\{(.*?)\}"
     line = r"\>(.*?)\<"
@@ -17,6 +18,7 @@ class gvar:
     commaSeparator = r"([^=]+),(.+)"
     UVars = {}
     UFuncs = {}
+    UFuncsParams = {}
     UBools = {}
     line=1
     class IMPORTS:
@@ -92,13 +94,14 @@ class gvar:
         class MATH:
             IS = False  
 def interpret(line):
-    if r"func(" in line:
-        function_name = re.search(gvar.definer, line) 
+    if r"func[" in line:
+        function_name = re.search(gvar.funcName, line) 
         if function_name is not None:
-            function_name = re.search(gvar.definer, line).group(1)
+            function_name = re.search(gvar.funcName, line).group(1)
             function_params = re.search(gvar.FuncParameters, line)
             if function_params is not None:
                 function_params = re.search(gvar.FuncParameters, line).group(1)
+                gvar.UFuncsParams[function_name] = function_params
                 function_code = re.search(gvar.encapsulator, line)
                 if function_code is not None:
                     function_code = re.search(gvar.encapsulator, line).group(1)
@@ -211,7 +214,9 @@ def interpret(line):
         else:
             if re.search(gvar.varDefiner, line) is not None:
                 match = re.search(gvar.varDefiner, line)
-                gvar.UVars[match.group(1)] = re.search(gvar.varDefiner, line).group(2)
+                if gvar.UVars.get(match.group(1)) is not None:
+                    gvar.UVars.pop(match.group(1), None)
+                    gvar.UVars[match.group(1)] = re.search(gvar.varDefiner, line).group(2)
             else:    
                 print("OBJ not recognized! make sure to use brackets! -> []")    
 while True:
