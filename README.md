@@ -6,7 +6,7 @@ There's alot to go over, let us commence.
 ## Variables
 In SOG+, there are no variable types, everything is a string, int's are to be added in version soon to come, as for booleans, they will be ignored.
 
-To create a variable, you can use the ````var[]``` function, inbetween the brackets ````[]``` goes the variable's name and value, eg:
+To create a variable, you can use the ```var[]``` function, inbetween the brackets ```[]``` goes the variable's name and value, eg:
 ```
 var[i=1]
 ```
