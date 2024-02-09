@@ -39,7 +39,10 @@ i is equal to 1
 ```
 
 ## Imports
-For now, you can only import the easter egg "This"
+For now, you can only import the easter egg "THIS"
+
+All future imports will also case sensitive, with them being in all caps.
+
 ```
 import(THIS)
 ```
