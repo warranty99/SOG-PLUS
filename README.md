@@ -29,7 +29,7 @@ hello_world
 Hello, World!
 ```
 ## Logical Statements
-In SOG+, if statements are supported, however, elif, else and while statements aren't, this will change with more updates.
+In SOG+, if statements are supported, however, elif and else statements aren't, this will change with more updates.
 To execute an if statement, you use the following command: ```if() {}```, inside the brackets ```()``` goes the question, for example: ```i==1```, this is limited to only ==, this will change with more updates.
 inside the curly brackets ```{}``` goes the code that will be executed if the question is true, eg:
 ```
