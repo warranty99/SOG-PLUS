@@ -28,6 +28,19 @@ func(hello_world) () {print("Hello, World!")}
 hello_world
 Hello, World!
 ```
+## Running
+You can run your code from the terminal if you want, if not, you can create a txt file (preferably .SOGP) and use the ```sog+()``` command to run it, heres an example:
+
+__Content of "HELLO_WORLD.SOGP":__
+```
+var(i=Hello, World!)
+print(i)
+```
+__Inside Terminal:__
+```
+sog+(path/to/file)
+Hello, World!
+```
 ## Logical Statements
 In SOG+, if statements are supported, however, elif and else statements aren't, this will change with more updates.
 To execute an if statement, you use the following command: ```if() {}```, inside the brackets ```()``` goes the question, for example: ```i==1```, this is limited to only ==, this will change with more updates.
