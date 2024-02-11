@@ -4,7 +4,7 @@ Improved version of .SOGCL, my first ever programming language, my hope is that 
 # Documentation
 There's alot to go over, let us commence.
 ## Variables
-In SOG+, there are no variable types, everything is a string, int's are to be added in version soon to come, as for booleans, they will be ignored.
+In SOG+, there are no variable types, everything is a string, int's are to be added in version soon to come, as for booleans, they will be ignored, as they are not necessary, just use 1 as true and 0 as false.
 
 To create a variable, you can use the ```var()``` function, inbetween the brackets ```()``` goes the variable's name and value, eg:
 ```
