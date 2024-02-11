@@ -90,6 +90,7 @@ class gvar:
             IS = False
         class MATH:
             IS = False  
+                   
 def interpret(line):
     if r"func[" in line:
         function_name = re.search(gvar.funcName, line) 
@@ -141,10 +142,10 @@ def interpret(line):
             if "==" in condition.group(1):
                 match = re.search(gvar.encapsulator, line).group(1)
                 if match is not None:
-                    arg1 = re.search(gvar.varIs, condition).group(1)
-                    print(arg1)
-                    arg2 = re.search(gvar.varIs, condition).group(2)
-                    while arg1 == arg2:
+                    match1 = re.search(gvar.varIs, condition).group(1)
+                    print(match1)
+                    match2 = re.search(gvar.varIs, condition).group(2)
+                    while match1 == match2:
                         interpret(match)                        
     elif r"print(" in line:
         match = re.search(gvar.definer, line)
@@ -200,21 +201,27 @@ def interpret(line):
     elif r"sog+(" in line:
         match = re.search(gvar.definer, line)
         if match is not None:
-            with open(match.group(1), 'r') as file:   
-                data = file.read()
-                for i in range(0, data.readlines()):
-                    interpret()          
+            interpretFile(match.group(1))   
     else:
         if gvar.UFuncs.get(line) is not None:
             interpret(gvar.UFuncs.get(line))
         else:
-            if re.search(gvar.varDefiner, line) is not None:
-                match = re.search(gvar.varDefiner, line)
-                if gvar.UVars.get(match.group(1)) is not None:
-                    gvar.UVars.pop(match.group(1), None)
-                    gvar.UVars[match.group(1)] = re.search(gvar.varDefiner, line).group(2)
-            else:    
-                print("OBJ not recognized! make sure to use brackets! -> []")    
+            if "=" in line:
+                    if re.search(gvar.varDefiner, line) is not None:
+                        match = re.search(gvar.varDefiner, line)
+                        if gvar.UVars.get(match.group(1)) is not None:
+                            gvar.UVars.pop(match.group(1), None)
+                            gvar.UVars[match.group(1)] = re.search(gvar.varDefiner, line).group(2)
+def interpretFile(file):
+    file1 = open(file, 'r')
+    Lines = file1.readlines()
+ 
+    count = 0
+    # Strips the newline character
+    for line in Lines:
+        count += 1
+        interpret(line) 
+                                 
 while True:
     if i == 0:
         print("Loading resources..")
