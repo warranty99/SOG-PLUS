@@ -38,7 +38,7 @@ print(i)
 ```
 __Inside Terminal:__
 ```
-sog+(path/to/file)
+sog+(HELLO_WORLD.SOGP)
 Hello, World!
 ```
 ## Logical Statements
