@@ -28,6 +28,7 @@ func(hello_world) () {print("Hello, World!")}
 hello_world
 Hello, World!
 ```
+For now, a fuunction can only hold 1 statement, you can make a file with code and use the sog+() command to run it as the sole statement in a function.
 ## Running
 You can run your code from the terminal if you want, if not, you can create a txt file (preferably .SOGP) and use the ```sog+()``` command to run it, heres an example:
 
